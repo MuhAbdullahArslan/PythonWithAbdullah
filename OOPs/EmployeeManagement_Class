@@ -9,12 +9,10 @@ class Person:
         self.dob = dob
     
     def get_age(self):
+        
         dob = datetime.strptime(self.dob,"%Y-%m-%d")
-
         today = datetime.today()
         age = today.year - dob.year
-
-         
         return age 
     
 class Employee(Person):
@@ -26,13 +24,15 @@ class Employee(Person):
     
     def __str__(self):
         return f"""
-    -:Employee Information:-
+=========:Employee Information:==============
     
-    name = {self.name}
+    Name = {self.name}
     age = {super().get_age()}
     DOB(Date_of_Birth) = {self.dob}
     Id = {self.employee_id}
     Department = {self.department}
+    
+=============================================
     """
 
 # 3. Class: Attendance
@@ -64,18 +64,34 @@ class Payroll(Attendance):
 
 # 5. Final Class: HRSystem (inherits from Employee, Attendance, and Payroll)
 class HRSystem(Employee,Payroll):
+    def __init__(self, name, dob, employee_id, department, salary):
+        Employee.__init__(self,name, dob, employee_id, department, salary)
+        Payroll.__init__(self)
     
 # Method: generate_report() – prints:
     def generate_report(self):
         print(f"""
-              Employee name : {self.name}
-              Age : {self.get_age()}
-              Department : {self.department}
-              Total attendance : {self.get_attendance_count()}
-              Final Salary : {self.calculate_pay()}""")
+----------------Employee Report ----------------
+
+Name             : {self.name}
+Age              : {self.get_age()}
+Department       : {self.department}
+Total attendance : {self.get_attendance_count()}
+Final Salary     : {self.calculate_pay()}
+
+------------------------------------------------
+""")
 
 
-em1 = HRSystem("Abdullah","2004-09-16",21406,"Electrical ",45000)
-em1.attendance_date('2024-09-16')
+emp1 = HRSystem("Abdullah","2004-09-16",21406,"Electrical ",45000)
+emp1.mark_attendance("16-09-2024")
+emp1.mark_attendance("17-09-2024")
+emp1.mark_attendance("18-09-2024")
+emp1.mark_attendance("19-09-2024")
+emp1.mark_attendance("20-09-2024")
+emp1.mark_attendance("21-09-2024")
+emp1.mark_attendance("22-09-2024")
+emp1.mark_attendance("23-09-2024")
+emp1.generate_report()
+print(emp1)
 
-print(em1)
