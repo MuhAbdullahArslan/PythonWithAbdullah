@@ -12,7 +12,7 @@ def hello_guest(guest):
 
 @app.route('/user/<name>')
 def user_name(name):
-    if name == "admin":
+    if name == "Admin":
         return redirect(url_for('hello_admin'))
     else:
         return redirect(url_for('hello_guest',guest=name))
